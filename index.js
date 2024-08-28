@@ -25,14 +25,6 @@ const calculate = () => {
   firstValue = result;
   secondValue = "";
 
-  // Prevent calculations after 0
-  if (result === 0) {
-    display.innerText = "0";
-    firstValue = "";
-    secondValue = "";
-    symbol = "";
-    return;
-  }
 };
 
 //1
@@ -46,6 +38,7 @@ for (let button of controlBtns) {
 
     //Preventing Nan - when there is no second value
     if (!secondValue && btnValue === "=") return null;
+
 
     //clear button
     if (btnValue === "C") {
