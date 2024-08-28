@@ -24,6 +24,15 @@ const calculate = () => {
   display.innerText = result;
   firstValue = result;
   secondValue = "";
+
+  // Prevent calculations after 0
+  if (result === 0) {
+    display.innerText = "0";
+    firstValue = "";
+    secondValue = "";
+    symbol = "";
+    return;
+  }
 };
 
 //1
@@ -35,19 +44,62 @@ for (let button of controlBtns) {
     //declare a variable
     const btnValueIsSymbol = allSymbols.includes(btnValue);
 
-    //if statements true or false
+    //Preventing Nan - when there is no second value
+    if (!secondValue && btnValue === "=") return null;
 
+    //clear button
+    if (btnValue === "C") {
+      firstValue = "";
+      secondValue = "";
+      symbol = "";
+      return (display.innerText = "");
+    }
+
+    // backspace functunality
+
+    if (btnValue === "⌫") {
+      if (symbol && secondValue) {
+        secondValue = secondValue.slice(0, -1);
+      } else if (symbol && !secondValue) {
+        symbol = "";
+      } else if (!symbol && firstValue) {
+        firstValue = firstValue.slice(0, -1);
+      }
+      display.innerText = firstValue + symbol + secondValue;
+      return;
+    }
+
+/// // Prevent multiple symbols
+/*
+if (btnValueIsSymbol && symbol !== "") {
+    return; // Do nothing if a symbol is already present
+}
+*/
+if (btnValueIsSymbol && symbol !== "" && btnValue !== "=") {
+    display.innerText = firstValue + btnValue;
+    symbol = btnValue;
+    return;
+}
+
+
+    //if statements true or false
     if (firstValue && btnValueIsSymbol) {
       ///calling calculate function
       secondValue && calculate();
-
       symbol = btnValue;
+    } else if (!symbol) {
+      if (btnValue === "." && firstValue.includes(".")) return; // Prevent multiple decimal points
+      firstValue += btnValue;
+    } else if (symbol) {
+      if (btnValue === "." && secondValue.includes(".")) return; // Prevent multiple decimal points
+      secondValue += btnValue;
     }
 
-    // else if statement  - if there's no symbol, that means the user is still inputting first value
-    else if (!symbol) firstValue += btnValue;
+    //display of numbers
+
+    // else if (!symbol) firstValue += btnValue;
     // if there's a symbol, that means the user is done with the first value then add to second
-    else if (symbol) secondValue += btnValue;
+    //else if (symbol) secondValue += btnValue
 
     if (btnValue !== "=") display.innerText += btnValue;
   });
