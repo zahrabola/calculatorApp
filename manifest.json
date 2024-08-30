@@ -21,7 +21,7 @@
     ],
     "theme_color": "#FFFFFF",
     "background_color": "#FFFFFF",
-    "start_url": "/zahra-calculator-app/",
+    "start_url": "/calculatorApp/",
     "display": "standalone",
     "orientation": "portrait"
   }

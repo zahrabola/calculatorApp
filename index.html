@@ -6,6 +6,35 @@
     <title>Calculator - Zahra app</title>
     <link rel="stylesheet" href="index.css">
     <link rel="icon" href="./assets/icon-192.png">
+
+<!---
+
+ <script>
+        if ('serviceWorker' in navigator) {
+          window.addEventListener('load', () => {
+            navigator.serviceWorker.register('./sw.js');
+          });
+        }
+      </script>
+---->
+   
+<script>
+    // Don't register the service worker
+    // until the page has fully loaded
+    window.addEventListener('load', () => {
+      // Is service worker available?
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('./sw.js').then(() => {
+          console.log('Service worker registered!');
+        }).catch((error) => {
+          console.warn('Error registering service worker:');
+          console.warn(error);
+        });
+      }
+    });
+  </script>
+
+
 </head>
 <body>
 
